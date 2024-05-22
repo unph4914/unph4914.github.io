@@ -1,21 +1,29 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = trim($_POST['name']);
-    $email = trim($_POST['email']);
-    $comment = trim($_POST['comment']);
+    // Get the form data
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $comment = $_POST['comment'];
 
-    $recipient = "unmesh.phaterpekar@colorado.edu";  // Change this to your email address
-    $subject = "Message from Website Contact Form";
-    $email_content = "Name: $name\n";
-    $email_content .= "Email: $email\n\n";
-    $email_content .= "Comment:\n$comment\n";
+    // Set the recipient email address
+    $to = "unmesh.phaterpekar@colorado.edu"; // Replace with your email address
 
-    $email_headers = "From: $name <$email>";
+    // Set the email subject
+    $subject = "New Contact Form Submission";
 
-    if (mail($recipient, $subject, $email_content, $email_headers)) {
-        echo "Thank you for your message!";
+    // Construct the email body
+    $message = "Name: $name\n";
+    $message .= "Email: $email\n";
+    $message .= "Comment:\n$comment\n";
+
+    // Set the email headers
+    $headers = "From: $email";
+
+    // Send the email
+    if (mail($to, $subject, $message, $headers)) {
+        echo "Thank you for contacting us!";
     } else {
-        echo "Oops! Something went wrong, we couldn't send your message.";
+        echo "Sorry, there was an error sending your message. Please try again later.";
     }
 }
 ?>
